@@ -1,4 +1,3 @@
-
 from unittest import result
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -18,7 +17,7 @@ def driver_wait(driver,element, time=5, wait_type=EC.element_to_be_clickable):
                 return element
         except Exception as ex:
             pass
-def theft_book():
+def thrift_book():
    with open('ISBN-test-input-file.csv','r') as file :
        test_isbns=file.readlines()
     
@@ -77,9 +76,12 @@ def theft_book():
 
 
 def output(list_1):
-    
+    with open('results.csv','w') as file:           
+        file.writelines(list_1)
 
-        
+
+output(thrift_book())
 
 sleep(150)
+
 

@@ -60,7 +60,7 @@ def thrift_book(driver):
            name_of_book=driver.find_element(By.XPATH,'/html/body/div[3]/div/div[3]/div[1]/div[2]/div/div/div[1]/div/div[2]/div[1]/h1').text
            avai='available'
            if price_book != None :
-              list_of_results.append(str(f'{isbn},{name_of_book},{avai},{price_book},{Quant.split(" ")[0]},{link}'))
+              list_of_results.append(str(f'{isbn},{name_of_book},{avai},{price_book},{Quant.split(" ")[0]},{link}\n'))
            try_=1
        except Exception as ex:
            pass
@@ -70,28 +70,30 @@ def thrift_book(driver):
              Quant=driver.find_element(By.XPATH,'/html/body/div[4]/div/div[3]/div[1]/div[1]/div/div/div/div/div[3]/div/div/p[1]').text
              link=driver.current_url
              avai='Unavailable'
-             price_book=''
+             price_book='none'
              if Quant!=None:
-                 list_of_results.append(str(f'{isbn},{name_of_book},{avai},{price_book},{Quant},{link}'))
+                 list_of_results.append(str(f'{isbn},{name_of_book},{avai},{price_book},{Quant},{link}\n'))
                  try_=1
            except:
                pass
        elif try_==0 :
-           name_of_book=''
-           price_book=''
+           name_of_book='none'
+           price_book='none'
            avai='not found'
-           Quant=''
-           link=''
-           list_of_results.append(str(f'{isbn},{name_of_book},{avai},{price_book},{Quant},{link}'))
+           Quant='none'
+           link='none'
+           list_of_results.append(str(f'{isbn},{name_of_book},{avai},{price_book},{Quant},{link}\n'))
    return list_of_results 
 
 
 def output(list_1):
-    with open('results.csv','w') as file:           
+    with open('results.csv','w') as file: 
+        file.write('ISBN,Book Title,Result (not found- unavailable- available) ,Price (if available),Quantity (if available),link(available),Buyer (leave blank)\n')          
         file.writelines(list_1)
 
 
 output(thrift_book(driver))
 
 sleep(150)
-
+driver.quit()
+ 
